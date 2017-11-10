@@ -1,5 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
-
+import { Injectable } from '@angular/core';
 
 const morseCode = {
     "a": "._", "b": "_...", "c": "_._.", "d": "_..",
@@ -14,17 +13,11 @@ const morseCode = {
     "6": "_....", "7": "__...", "8": "___..", "9": "____.", "0": "_____"
 }
 
-function translate(msg: string): string {
-    return msg.split("").reduce(function (prev, char) {
-        return prev + morseCode[ char.toLocaleLowerCase() ] + " ";
-    }, "");
-}
-
-
-@Pipe({ name: 'morse' })
-export class MorsePipe implements PipeTransform {
-    transform(value: string): any {
-        return translate(value);
+@Injectable()
+export class MorseEncodeService {
+    public translate(msg: string): string {
+        return msg.split("").reduce(function (prev, char) {
+            return prev + morseCode[ char.toLocaleLowerCase() ] + " ";
+        }, "");
     }
 }
-

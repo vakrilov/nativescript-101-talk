@@ -6,7 +6,7 @@ import { AppComponent } from "./app.component";
 // Uncomment and add to NgModule imports if you need to use two-way binding
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptAnimationsModule } from "nativescript-angular/animations";
-import { MorsePipe } from "./morse-encode.pipe";
+import { MorseEncodeService } from "./morse-encode.service";
 
 @NgModule({
     bootstrap: [
@@ -18,10 +18,10 @@ import { MorsePipe } from "./morse-encode.pipe";
         NativeScriptAnimationsModule,
     ],
     declarations: [
-        AppComponent,
-        MorsePipe
+        AppComponent
     ],
     providers: [
+        MorseEncodeService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
