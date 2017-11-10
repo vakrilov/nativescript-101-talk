@@ -1,0 +1,9 @@
+<StackLayout class="form">
+    <TextField [(ngModel)]="msg" class="input input-border imput-rounded m-15"></TextField>
+
+    <WrapLayout orientation="horizontal" [@codeCharAnimation]="msg" class="m-15">
+        <Label *ngFor="let char of (msg | morse).split('')" 
+        [text]="char" class="code-char"></Label>
+
+    </WrapLayout>
+</StackLayout>
