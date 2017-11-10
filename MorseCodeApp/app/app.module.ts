@@ -8,11 +8,16 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptAnimationsModule } from "nativescript-angular/animations";
 import { MorseEncodeService } from "./morse-encode.service";
 
+import { NativeScriptUIChartModule } from "nativescript-pro-ui/chart/angular";
+
+
 @NgModule({
     bootstrap: [
         AppComponent
     ],
     imports: [
+        NativeScriptUIChartModule,
+
         NativeScriptModule,
         NativeScriptFormsModule,
         NativeScriptAnimationsModule,

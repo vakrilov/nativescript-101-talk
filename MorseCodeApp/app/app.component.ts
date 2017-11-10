@@ -31,14 +31,25 @@ import { MorseEncodeService } from "./morse-encode.service";
     ]
 })
 export class AppComponent {
-    msg: string = "";
     code: Array<string>;
     light: boolean = false;
     currentIndex: number = -1;
+    pieSource: Array<{ name: string, amount: number }> = [];
 
     constructor(private morse: MorseEncodeService) { }
+
     update(value) {
         this.code = this.morse.translate(value).split("")
+
+        let res = {};
+        this.code.forEach(c => res[ c ] = res[ c ] ? res[ c ] + 1 : 1);
+
+        this.pieSource = [
+            { name: "dot", amount: res[ "." ] },
+            { name: "dash", amount: res[ "_" ] },
+            { name: "space", amount: res[ " " ] }
+        ];
+
     }
 
     sendMessage() {

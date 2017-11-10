@@ -5,8 +5,21 @@
     <Button text="SEND" (tap)="sendMessage()" class="btn btn-primary"></Button>
 
     <WrapLayout orientation="horizontal" [@flyIn]="code" class="m-x-15">
-        <Label *ngFor="let char of code; index as idx" [text]="char" class="body code-char" [@jump]="idx === currentIndex ? 'up' : 'down'"></Label>
+        <Label *ngFor="let char of code; index as idx" [text]="char" class="body code-char"
+            [@jump]="idx === currentIndex ? 'up' : 'down'"></Label>
     </WrapLayout>
+    <!-- <Label [text]="pieSource | json" textWrap="true"></Label> -->
 
-    <GridLayout [class.light]="light"></GridLayout>
+    <!-- <GridLayout [class.light]="light"></GridLayout> -->
+
+    <RadPieChart height="300" width="300" allowAnimation="true">
+        <PieSeries tkPieSeries selectionMode="DataPoint" expandRadius="0.4" outerRadiusFactor="0.7"
+            [items]="pieSource" valueProperty="amount" legendLabel="name"></PieSeries>
+
+        <RadLegendView tkPieLegend position="Right" title="Symbols" offsetOrigin="TopRight"
+            width="110" enableSelection="true"></RadLegendView>
+
+    </RadPieChart>
+
+
 </StackLayout>
