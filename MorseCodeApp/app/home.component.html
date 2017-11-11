@@ -2,8 +2,8 @@
 </ActionBar>
 <StackLayout class="page form">
     <WrapLayout orientation="horizontal" [@flyIn]="code" class="m-x-15">
-        <Label *ngFor="let symbol of code" [text]="symbol.char" class="body code-char"
-            [@jump]="symbol.isActive ? 'up' : 'down'"></Label>
+        <Label *ngFor="let char of code; index as idx" [text]="char" class="body code-char"
+            [@jump]="idx === currentIndex ? 'up' : 'down'"></Label>
     </WrapLayout>
 
     <TextField (textChange)="update($event.value)" class="input input-border m-15"></TextField>

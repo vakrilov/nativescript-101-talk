@@ -10,10 +10,6 @@ const SYMBOL_TIME_MAP = {
     "_": 1000,
 };
 
-class DisplayedSymbol {
-    constructor(public char: string, public isActive = false) { }
-}
-
 @Component({
     selector: "ns-home",
     templateUrl: "home.component.html",
@@ -43,7 +39,7 @@ class DisplayedSymbol {
     ]
 })
 export class HomeComponent {
-    public code: Array<DisplayedSymbol>;
+    public code: Array<string>;
     public currentIndex: number = -1;
     msg: string;
 
@@ -51,18 +47,16 @@ export class HomeComponent {
 
     update(value) {
         this.msg = value;
-        this.code = this.morse
-            .translate(value)
-            .split("")
-            .map(char => new DisplayedSymbol(char));
+        this.code = this.morse.translate(value).split("");
     }
 
     async sendMessage() {
-        for (const symbol of this.code) {
-            symbol.isActive = true;
-            await this.playSingle(symbol.char);
-            symbol.isActive = false;
+        for (let i = 0; i < this.code.length; i += 1) {
+            this.currentIndex = i;
+            await this.playSingle(this.code[i]);
+            this.currentIndex = -1;
             await sleep(GAP_TIME);
+
         }
     }
 
