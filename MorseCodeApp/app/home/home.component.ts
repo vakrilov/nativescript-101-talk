@@ -4,6 +4,13 @@ import { Component } from "@angular/core";
 import { MorseService } from "../shared/morse.service";
 import { FlashlightService } from "../shared/flashlight.service";
 
+const GAP_TIME = 300;
+const SYMBOL_TIME_MAP = {
+    ".": 400,
+    "_": 1000,
+};
+const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms));
+
 @Component({
     moduleId: module.id,
     selector: "ns-home",
@@ -19,11 +26,20 @@ export class HomeComponent {
     constructor(private morse: MorseService, private flash: FlashlightService) {
     }
 
-    light(){
-        this.flash.turnOn();
+    async send() {
+        for (let i = 0; i < this.code.length; i += 1) {
+            await this.playSingle(this.code[i]);
+            await sleep(GAP_TIME);
+        }
     }
 
-    dark(){
-        this.flash.turnOff();
+    private async playSingle(symbol: string) {
+        console.log("Playing: " + symbol);
+        const time = SYMBOL_TIME_MAP[symbol];
+        if (time) {
+            this.flash.turnOn();
+            await sleep(time);
+            this.flash.turnOff();
+        }
     }
 }
