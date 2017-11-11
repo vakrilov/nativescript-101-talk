@@ -6,6 +6,7 @@ import { NSModuleFactoryLoader } from "nativescript-angular/router";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { MorseService } from "./shared/morse.service";
+import { FlashlightService } from "./shared/flashlight.service";
 
 @NgModule({
     bootstrap: [
@@ -21,7 +22,8 @@ import { MorseService } from "./shared/morse.service";
     ],
     providers: [
         { provide: NgModuleFactoryLoader, useClass: NSModuleFactoryLoader },
-        MorseService
+        MorseService,
+        FlashlightService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
