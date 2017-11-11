@@ -35,23 +35,23 @@ export class MorseService {
     public getBigData(msg: string): BigData {
         const code = this.translate(msg);
         const res = {};
-        const dotSeries: DataPoint[] = [];
-        const dashSeries: DataPoint[] = [];
+        const dotSeries: DataPoint[] = [{ name: "0", value: 0 }];
+        const dashSeries: DataPoint[] = [{ name: "0", value: 0 }];
         let count = 1;
 
-        code.split('').forEach(char => {
-            res[ char ] = res[ char ] ? res[ char ] + 1 : 1;
-            if (char === " ") {
-                dotSeries.push({ name: count + "", value: res[ "." ] || 0 });
-                dashSeries.push({ name: count + "", value: res[ "_" ] || 0 });
+        code.split('').forEach((char, i, arr) => {
+            res[char] = res[char] ? res[char] + 1 : 1;
+            if (char === " " || i === (arr.length - 1)) {
+                dotSeries.push({ name: count + "", value: res["."] || 0 });
+                dashSeries.push({ name: count + "", value: res["_"] || 0 });
                 count++;
             }
         });
 
         const pieData = [
-            { name: "dot", value: res[ "." ] },
-            { name: "dash", value: res[ "_" ] },
-            { name: "space", value: res[ " " ] }
+            { name: "dot", value: res["."] },
+            { name: "dash", value: res["_"] },
+            { name: "space", value: res[" "] }
         ];
 
         return { pieData, dotSeries, dashSeries };
