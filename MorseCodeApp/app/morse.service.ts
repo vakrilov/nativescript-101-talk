@@ -34,9 +34,9 @@ export class MorseService {
 
     public getBigData(msg: string): BigData {
         const code = this.translate(msg);
-        let res = {};
-        let dotSeries: DataPoint[] = [];
-        let dashSeries: DataPoint[] = [];
+        const res = {};
+        const dotSeries: DataPoint[] = [];
+        const dashSeries: DataPoint[] = [];
         let count = 1;
 
         code.split('').forEach(char => {
