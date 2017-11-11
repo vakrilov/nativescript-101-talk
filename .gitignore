@@ -2,4 +2,7 @@
 **/node_modules
 **/hooks
 
+**/*.swp
+**/*.swo
+
 MorseCodeApp/**/*.js
