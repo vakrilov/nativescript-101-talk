@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { trigger, transition, style, animate, query, stagger } from "@angular/animations";
 import { MorseService } from "./morse.service";
+import { FlashlightService } from "./flashlight.service";
 
 @Component({
     selector: "ns-home",
@@ -35,9 +36,8 @@ export class HomeComponent {
     code: Array<string>;
     light: boolean = false;
     currentIndex: number = -1;
-    pieSource: Array<{ name: string, amount: number }> = [];
 
-    constructor(private morse: MorseService) { }
+    constructor(private morse: MorseService, private flash: FlashlightService) { }
 
     update(value) {
         this.msg = value;
@@ -52,7 +52,7 @@ export class HomeComponent {
         const next = () => {
             if (i < code.length) {
                 if (code[ i ] === "." || code[ i ] === "_") {
-                    len = code[ i ] === "." ? 300 : 600;
+                    len = code[ i ] === "." ? 500 : 1000;
                     this.lightOn(i);
                     setTimeout(() => this.lightOff(), len);
                     setTimeout(next, len + 300);
@@ -68,14 +68,16 @@ export class HomeComponent {
     }
 
     lightOn(index: number) {
-        // TODO: Use nativescript-flashlight plugin
+        console.log("on: " + new Date().getSeconds() + ":" + new Date().getMilliseconds());
         this.light = true;
         this.currentIndex = index;
+        this.flash.turnOn();
     }
 
     lightOff() {
-        // TODO: Use nativescript-flashlight plugin        
+        console.log("off: " + new Date().getSeconds() + ":" + new Date().getMilliseconds());
         this.light = false;
         this.currentIndex = -1;
+        this.flash.turnOff();
     }
 }

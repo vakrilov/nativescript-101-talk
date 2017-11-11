@@ -11,6 +11,7 @@ import { NativeScriptAnimationsModule } from "nativescript-angular/animations";
 import { MorseService } from "./morse.service";
 
 import { NativeScriptUIChartModule } from "nativescript-pro-ui/chart/angular";
+import { FlashlightService } from "./flashlight.service";
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { NativeScriptUIChartModule } from "nativescript-pro-ui/chart/angular";
         HomeComponent
     ],
     providers: [
-        MorseService
+        MorseService,
+        FlashlightService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
