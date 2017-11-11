@@ -1,10 +1,9 @@
 import { Component } from "@angular/core";
-import { trigger, transition, style, animate, query, stagger } from "@angular/animations";
-import { MorseService } from "./morse.service";
 
 @Component({
+    moduleId: module.id,
     selector: "ns-app",
-    templateUrl: "app.component.html",
+    templateUrl: "./app.component.html",
 })
 export class AppComponent {
 }
