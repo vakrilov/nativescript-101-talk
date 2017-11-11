@@ -6,9 +6,12 @@
             [@jump]="idx === currentIndex ? 'up' : 'down'"></Label>
     </WrapLayout>
 
-    <TextField (textChange)="update($event.value)" class="input input-border imput-rounded m-15 h2"></TextField>
-    <Button text="SEND" (tap)="sendMessage()" class="btn btn-primary"></Button>
-    <Button text="ANALYZE" [nsRouterLink]="['/analytics', msg]" pageTransition="flip"
-        class="btn btn-outline"></Button>
+    <TextField (textChange)="update($event.value)" class="input input-border m-15"></TextField>
 
+    <Button text="Send" (tap)="sendMessage()" class="btn btn-primary"></Button>
+    <Button text="Analyze"
+        [nsRouterLink]="['/analytics', msg]"
+        pageTransition="flip"
+        class="btn btn-outline"
+    ></Button>
 </StackLayout>
