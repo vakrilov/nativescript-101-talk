@@ -1,87 +1,10 @@
 import { Component } from "@angular/core";
 import { trigger, transition, style, animate, query, stagger } from "@angular/animations";
-import { MorseEncodeService } from "./morse-encode.service";
+import { MorseService } from "./morse.service";
 
 @Component({
     selector: "ns-app",
     templateUrl: "app.component.html",
-    animations: [
-        trigger("flyIn", [
-            transition("* => *", [
-                // this hides everything right away
-                query(":enter",
-                    style({ opacity: 0, transform: "translateX(100)" })),
-
-                // starts to animate things with a stagger in between
-                query(":enter",
-                    stagger(100, [
-                        animate(300,
-                            style({ opacity: 1, transform: "translateX(0)" }))
-                    ]), { delay: 100 }),
-            ])
-        ]),
-        trigger("jump", [
-            transition("down => up", [
-                animate(100, style({ transform: "translateY(-30)" })) ],
-            ),
-            transition("up => down", [
-                animate(100, style({ transform: "translateY(0)" })) ],
-            ),
-        ])
-    ]
 })
 export class AppComponent {
-    code: Array<string>;
-    light: boolean = false;
-    currentIndex: number = -1;
-    pieSource: Array<{ name: string, amount: number }> = [];
-
-    constructor(private morse: MorseEncodeService) { }
-
-    update(value) {
-        this.code = this.morse.translate(value).split("")
-
-        let res = {};
-        this.code.forEach(c => res[ c ] = res[ c ] ? res[ c ] + 1 : 1);
-
-        this.pieSource = [
-            { name: "dot", amount: res[ "." ] },
-            { name: "dash", amount: res[ "_" ] },
-            { name: "space", amount: res[ " " ] }
-        ];
-
-    }
-
-    sendMessage() {
-        const code = this.code;
-        let i = 0;
-
-        let len: number;
-        const next = () => {
-            if (i < code.length) {
-                if (code[ i ] === "." || code[ i ] === "_") {
-                    len = code[ i ] === "." ? 300 : 600;
-                    this.lightOn(i);
-                    setTimeout(() => this.lightOff(), len);
-                    setTimeout(next, len + 300);
-                } else {
-                    setTimeout(next, 600);
-                }
-            } else {
-                console.log("FINISHED")
-            }
-            i++;
-        }
-        next();
-    }
-
-    lightOn(index: number) {
-        this.light = true;
-        this.currentIndex = index;
-    }
-
-    lightOff() {
-        this.light = false;
-        this.currentIndex = -1;
-    }
 }

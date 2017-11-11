@@ -1,12 +1,14 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
-// import { AppRoutingModule } from "./app.routing";
+import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { HomeComponent } from "./home.component";
+import { AnalyticsComponent } from "./analytics.component";
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptAnimationsModule } from "nativescript-angular/animations";
-import { MorseEncodeService } from "./morse-encode.service";
+import { MorseService } from "./morse.service";
 
 import { NativeScriptUIChartModule } from "nativescript-pro-ui/chart/angular";
 
@@ -17,16 +19,19 @@ import { NativeScriptUIChartModule } from "nativescript-pro-ui/chart/angular";
     ],
     imports: [
         NativeScriptUIChartModule,
-
+        AppRoutingModule,
         NativeScriptModule,
         NativeScriptFormsModule,
         NativeScriptAnimationsModule,
     ],
     declarations: [
-        AppComponent
+        // TODO: Lazy load feature modules
+        AppComponent,
+        AnalyticsComponent,
+        HomeComponent
     ],
     providers: [
-        MorseEncodeService
+        MorseService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

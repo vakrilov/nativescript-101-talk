@@ -1,0 +1,14 @@
+<ActionBar title="Morse" class="action-bar">
+</ActionBar>
+<StackLayout class="page form">
+    <TextField (textChange)="update($event.value)" class="input input-border imput-rounded m-15 h2"></TextField>
+    <Button text="SEND" (tap)="sendMessage()" class="btn btn-primary"></Button>
+    <Button text="ANALYZE" [nsRouterLink]="['/analytics', msg]" pageTransition="flip"
+        class="btn btn-outline"></Button>
+
+    <WrapLayout orientation="horizontal" [@flyIn]="code" class="m-x-15">
+        <Label *ngFor="let char of code; index as idx" [text]="char" class="body code-char"
+            [@jump]="idx === currentIndex ? 'up' : 'down'"></Label>
+    </WrapLayout>
+
+</StackLayout>
