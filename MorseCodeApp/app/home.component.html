@@ -1,4 +1,6 @@
 <ActionBar title="Morse" class="action-bar">
+    <ActionItem ios.position="right" text="Data" [nsRouterLink]="['/analytics', msg]" pageTransition="flip">
+    </ActionItem>
 </ActionBar>
 <StackLayout class="page form">
     <WrapLayout orientation="horizontal" [@flyIn]="code" class="m-x-15">
@@ -9,9 +11,4 @@
     <TextField (textChange)="update($event.value)" class="input input-border m-15"></TextField>
 
     <Button text="Send" (tap)="sendMessage()" class="btn btn-primary"></Button>
-    <Button text="Analyze"
-        [nsRouterLink]="['/analytics', msg]"
-        pageTransition="flip"
-        class="btn btn-outline"
-    ></Button>
 </StackLayout>

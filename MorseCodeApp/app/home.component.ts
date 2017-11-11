@@ -30,10 +30,10 @@ const SYMBOL_TIME_MAP = {
         ]),
         trigger("jump", [
             transition("down => up", [
-                animate(100, style({ transform: "translateY(-30)" })) ],
+                animate(100, style({ transform: "translateY(-30)" }))],
             ),
             transition("up => down", [
-                animate(100, style({ transform: "translateY(0)" })) ],
+                animate(100, style({ transform: "translateY(0)" }))],
             ),
         ])
     ]

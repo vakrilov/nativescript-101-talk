@@ -23,11 +23,18 @@ export class FlashlightService {
     flash(onOrOff) {
         if (isAndroid) {
             const context = app.android.context;
-            const cameraService = context.getSystemService(android.content.Context.CAMERA_SERVICE)
-            const cameras = cameraService.getCameraIdList();
-            cameraService.setTorchMode(cameras[ 0 ], onOrOff);
+            const cameraService = context.getSystemService(android.content.Context.CAMERA_SERVICE);
+            if (cameraService) {
+                const cameras = cameraService.getCameraIdList();
+                cameraService.setTorchMode(cameras[0], onOrOff);
+            }
         } else {
             const device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo);
+            if (!device) {
+                console.log("Device does not support flashlight");
+                return;
+            }
+
             device.lockForConfiguration(null);
             if (onOrOff) {
                 device.setTorchModeOnWithLevelError(AVCaptureMaxAvailableTorchLevel, null);
