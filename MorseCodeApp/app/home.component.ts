@@ -3,6 +3,17 @@ import { trigger, transition, style, animate, query, stagger } from "@angular/an
 import { MorseService } from "./morse.service";
 import { FlashlightService } from "./flashlight.service";
 
+const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms));
+const GAP_TIME = 500;
+const SYMBOL_TIME_MAP = {
+    ".": 400,
+    "_": 1000,
+};
+
+class DisplayedSymbol {
+    constructor(public char: string, public isActive = false) { }
+}
+
 @Component({
     selector: "ns-home",
     templateUrl: "home.component.html",
@@ -32,49 +43,39 @@ import { FlashlightService } from "./flashlight.service";
     ]
 })
 export class HomeComponent {
+    public code: Array<DisplayedSymbol>;
+    public currentIndex: number = -1;
     msg: string;
-    code: Array<string>;
-    currentIndex: number = -1;
 
     constructor(private morse: MorseService, private flash: FlashlightService) { }
 
     update(value) {
         this.msg = value;
-        this.code = this.morse.translate(value).split("");
+        this.code = this.morse
+            .translate(value)
+            .split("")
+            .map(char => new DisplayedSymbol(char));
     }
 
-    sendMessage() {
-        const code = this.code;
-        let i = 0;
-
-        let len: number;
-        const next = () => {
-            if (i < code.length) {
-                if (code[ i ] === "." || code[ i ] === "_") {
-                    len = code[ i ] === "." ? 500 : 1000;
-                    this.lightOn(i);
-                    setTimeout(() => this.lightOff(), len);
-                    setTimeout(next, len + 300);
-                } else {
-                    setTimeout(next, 600);
-                }
-            } else {
-                console.log("FINISHED")
-            }
-            i++;
+    async sendMessage() {
+        for (const symbol of this.code) {
+            symbol.isActive = true;
+            await this.playSingle(symbol.char);
+            symbol.isActive = false;
+            await sleep(GAP_TIME);
         }
-        next();
     }
 
-    lightOn(index: number) {
-        console.log("on: " + new Date().getSeconds() + ":" + new Date().getMilliseconds());
-        this.currentIndex = index;
+    private async playSingle(symbol: string) {
+        const time = SYMBOL_TIME_MAP[symbol];
+        if (time) {
+            await this.shine(time);
+        }
+    }
+
+    private async shine(ms: number) {
         this.flash.turnOn();
-    }
-
-    lightOff() {
-        console.log("off: " + new Date().getSeconds() + ":" + new Date().getMilliseconds());
-        this.currentIndex = -1;
+        await sleep(ms);
         this.flash.turnOff();
     }
 }
