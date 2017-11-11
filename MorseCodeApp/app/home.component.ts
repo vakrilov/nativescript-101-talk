@@ -34,14 +34,13 @@ import { FlashlightService } from "./flashlight.service";
 export class HomeComponent {
     msg: string;
     code: Array<string>;
-    light: boolean = false;
     currentIndex: number = -1;
 
     constructor(private morse: MorseService, private flash: FlashlightService) { }
 
     update(value) {
         this.msg = value;
-        this.code = this.morse.translate(value).split("")
+        this.code = this.morse.translate(value).split("");
     }
 
     sendMessage() {
@@ -69,14 +68,12 @@ export class HomeComponent {
 
     lightOn(index: number) {
         console.log("on: " + new Date().getSeconds() + ":" + new Date().getMilliseconds());
-        this.light = true;
         this.currentIndex = index;
         this.flash.turnOn();
     }
 
     lightOff() {
         console.log("off: " + new Date().getSeconds() + ":" + new Date().getMilliseconds());
-        this.light = false;
         this.currentIndex = -1;
         this.flash.turnOff();
     }
