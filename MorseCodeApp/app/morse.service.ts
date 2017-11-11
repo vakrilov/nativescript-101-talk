@@ -27,9 +27,9 @@ export interface BigData {
 @Injectable()
 export class MorseService {
     public translate(msg: string): string {
-        return msg.split("").reduce(function (prev, char) {
-            return prev + morseCode[ char.toLocaleLowerCase() ] + " ";
-        }, "");
+        return msg.split("")
+            .map(char => morseCode[ char.toLocaleLowerCase() ])
+            .join(" ");
     }
 
     public getBigData(msg: string): BigData {
