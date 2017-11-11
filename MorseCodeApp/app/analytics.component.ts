@@ -11,7 +11,7 @@ export class AnalyticsComponent {
     msg: string;
     data: BigData;
     constructor(route: ActivatedRoute, service: MorseService) {
-        this.msg = route.snapshot.params[ "msg" ];
+        this.msg = route.snapshot.params["msg"];
         this.data = service.getBigData(this.msg);
     }
 }
