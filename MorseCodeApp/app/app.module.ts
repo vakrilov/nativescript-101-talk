@@ -5,6 +5,7 @@ import { NSModuleFactoryLoader } from "nativescript-angular/router";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { MorseService } from "./shared/morse.service";
 
 @NgModule({
     bootstrap: [
@@ -20,7 +21,7 @@ import { AppComponent } from "./app.component";
     ],
     providers: [
         { provide: NgModuleFactoryLoader, useClass: NSModuleFactoryLoader },
-        
+        MorseService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

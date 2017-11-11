@@ -1,4 +1,11 @@
+<ActionBar title="The Morse Code App" class="action-bar">
+</ActionBar>
 <StackLayout class="page form">
-    <Label text="Start here" class="h1"></Label>
+    <Label [text]="code" textWrap="true" class="m-x-15 code-char"></Label>
+    
+    <TextField hint="type" class="input input-border m-15" (textChange)="update($event.value)"></TextField>
+
+
+    
 
 </StackLayout>
