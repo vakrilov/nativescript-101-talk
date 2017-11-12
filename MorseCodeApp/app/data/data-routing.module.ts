@@ -5,7 +5,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { DataComponent } from "./data.component";
 
 const routes: Routes = [
-    { path: "", component: DataComponent }
+    { path: ":msg", component: DataComponent }
 ];
 
 @NgModule({

@@ -42,10 +42,12 @@ const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms));
     ]
 })
 export class HomeComponent {
+    msg: string;
     code: Array<string>;
     current: number = -1;
 
     update(msg: string) {
+        this.msg = msg;
         this.code = this.morse.translate(msg).split("");
     }
 

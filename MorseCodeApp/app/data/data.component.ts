@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 
-import { MorseService } from "../shared/morse.service";
+import { ActivatedRoute } from "@angular/router";
+import { MorseService, BigData } from "../shared/morse.service";
 
 @Component({
     moduleId: module.id,
@@ -8,6 +9,9 @@ import { MorseService } from "../shared/morse.service";
     templateUrl: "./data.component.html"
 })
 export class DataComponent {
-    constructor(private morse: MorseService) {
+    data: BigData;
+    constructor(morse: MorseService, route: ActivatedRoute) {
+        const msg = route.snapshot.params["msg"];
+        this.data = morse.getBigData(msg);
     }
 }
