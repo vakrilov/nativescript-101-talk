@@ -23,7 +23,22 @@ const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms));
             transition("up => down", [
                 animate(100, style({ transform: "translateY(0)" }))],
             ),
-        ])
+        ]),
+
+        trigger("flyIn", [
+            transition("* => *", [
+                // this hides everything right away
+                query(":enter",
+                    style({ opacity: 0, transform: "translateX(100)" })),
+
+                // starts to animate things with a stagger in between
+                query(":enter",
+                    stagger(100, [
+                        animate(300,
+                            style({ opacity: 1, transform: "translateX(0)" }))
+                    ]), { delay: 100 }),
+            ])
+        ]),
     ]
 })
 export class HomeComponent {
