@@ -3,7 +3,7 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptUIChartModule } from "nativescript-pro-ui/chart/angular";
 
 import { DataRoutingModule } from "./data-routing.module";
-// import { DataComponent } from "./data.component";
+import { DataComponent } from "./data.component";
 
 @NgModule({
     imports: [
@@ -12,7 +12,7 @@ import { DataRoutingModule } from "./data-routing.module";
         NativeScriptUIChartModule
     ],
     declarations: [
-        // DataComponent
+        DataComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

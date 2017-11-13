@@ -2,10 +2,10 @@ import { NgModule } from "@angular/core";
 import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
-// import { DataComponent } from "./data.component";
+import { DataComponent } from "./data.component";
 
 const routes: Routes = [
-    // { path: ":msg", component: DataComponent }
+    { path: ":msg", component: DataComponent }
 ];
 
 @NgModule({
@@ -13,3 +13,4 @@ const routes: Routes = [
     exports: [NativeScriptRouterModule]
 })
 export class DataRoutingModule { }
+
