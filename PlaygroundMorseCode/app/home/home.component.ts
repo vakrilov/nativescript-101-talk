@@ -40,7 +40,7 @@ export class HomeComponent {
     public currentIndex = -1;
     public message: string;
 
-    constructor(private morseService: MorseService, private flashlightService: FlashlightService) { }
+    constructor(private morseService: MorseService, private flash: FlashlightService) { }
 
     update(value: string) {
         this.message = value;
@@ -50,35 +50,25 @@ export class HomeComponent {
     async sendMessage() {
         for (let i = 0; i < this.code.length; i += 1) {
             this.currentIndex = i;
+            await this.playSingle(this.code[i]);
+            this.currentIndex = -1;
             await sleep(GAP_TIME);
-        }
 
-        this.currentIndex = -1;
+        }
+    }
+
+    private async playSingle(symbol: string) {
+        const time = SYMBOL_TIME_MAP[symbol];
+        if (time) {
+            await this.shine(time);
+        }
+    }
+
+    private async shine(ms: number) {
+        this.flash.turnOn();
+        await sleep(ms);
+        this.flash.turnOff();
     }
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-    // private async playSingle(symbol: string) {
-    //     const time = SYMBOL_TIME_MAP[symbol];
-    //     if (time) {
-    //         await this.shine(time);
-    //     }
-    // }
-
-
-    // private async shine(ms: number) {
-    //     this.flash.turnOn();
-    //     await sleep(ms);
-    //     this.flash.turnOff();
-    // }
