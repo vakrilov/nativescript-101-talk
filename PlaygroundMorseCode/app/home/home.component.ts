@@ -3,26 +3,59 @@ import { trigger, transition, style, animate, query, stagger } from "@angular/an
 import { MorseService } from "../morse.service";
 // import { FlashlightService } from "../flashlight.service";
 
-// const GAP_TIME = 300;
-// const SYMBOL_TIME_MAP = {
-//     ".": 400,
-//     "_": 1000,
-// };
+const GAP_TIME = 300;
+const SYMBOL_TIME_MAP = {
+    ".": 400,
+    "_": 1000,
+};
 const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms));
 
 @Component({
     selector: "ns-home",
     moduleId: module.id,
     templateUrl: "./home.component.html",
+    animations: [
+        trigger("flyIn", [
+            transition("* => *",
+                query(":enter", [
+                    style({ opacity: 0, transform: "translateX(100)" }),
+                    stagger(100, [
+                        animate(300, style({ opacity: 1, transform: "translateX(0)" }))
+                    ])
+                ]),
+            )
+        ]),
+        trigger("jump", [
+            transition("down => up", [
+                animate(100, style({ transform: "translateY(-30)" }))],
+            ),
+            transition("up => down", [
+                animate(100, style({ transform: "translateY(0)" }))],
+            ),
+        ])
+    ]
 })
 export class HomeComponent {
+    public code: Array<string>;
+    public currentIndex = -1;
     message: string;
 
     constructor(private morseService: MorseService) { }
 
     update(value: string) {
-        this.message = this.morseService.translate(value);
+        this.message = value;
+        this.code = this.morseService.translate(value).split("");
     }
+
+    async sendMessage() {
+        for (let i = 0; i < this.code.length; i += 1) {
+            this.currentIndex = i;
+            await sleep(GAP_TIME);
+        }
+
+        this.currentIndex = -1;
+    }
+
 }
 
 
@@ -33,45 +66,8 @@ export class HomeComponent {
 
 
 
-   // animations: [
-    //     trigger("flyIn", [
-    //         transition("* => *",
-    //             query(":enter", [
-    //                 style({ opacity: 0, transform: "translateX(100)" }),
-    //                 stagger(100, [
-    //                     animate(300, style({ opacity: 1, transform: "translateX(0)" }))
-    //                 ])
-    //             ]),
-    //         )
-    //     ]),
-    //     trigger("jump", [
-    //         transition("down => up", [
-    //             animate(100, style({ transform: "translateY(-30)" }))],
-    //         ),
-    //         transition("up => down", [
-    //             animate(100, style({ transform: "translateY(0)" }))],
-    //         ),
-    //     ])
-    // ]
 
 
-
-
-
-
-    // update(value) {
-    //     this.msg = value;
-    //     this.code = this.morse.translate(value).split("");
-    // }
-
-    // async sendMessage() {
-    //     for (let i = 0; i < this.code.length; i += 1) {
-    //         this.currentIndex = i;
-    //         await this.playSingle(this.code[i]);
-    //         this.currentIndex = -1;
-    //         await sleep(GAP_TIME);
-    //     }
-    // }
 
     // private async playSingle(symbol: string) {
     //     const time = SYMBOL_TIME_MAP[symbol];
@@ -79,6 +75,7 @@ export class HomeComponent {
     //         await this.shine(time);
     //     }
     // }
+
 
     // private async shine(ms: number) {
     //     this.flash.turnOn();

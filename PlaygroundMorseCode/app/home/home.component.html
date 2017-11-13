@@ -1,12 +1,11 @@
 <ActionBar title="Morse Code App!" class="action-bar">
 </ActionBar>
 <StackLayout class="page form p-15">
-    <Label
-        [text]="message"
-        textWrap="true"
-        class="code-char"
-    ></Label>
+    <WrapLayout orientation="horizontal" class="m-x-15" [@flyIn]="code">
+        <Label *ngFor="let char of code; index as idx" [text]="char" class="code-char"
+            [@jump]="idx === currentIndex ? 'up' : 'down'"></Label>
+    </WrapLayout>
 
     <TextField (textChange)="update($event.value)" class="input input-border" hint="type message here..."></TextField>
-    <Button class="btn btn-primary" text="Send"></Button>
+    <Button (tap)="sendMessage()" class="btn btn-primary" text="Send"></Button>
 </StackLayout>
