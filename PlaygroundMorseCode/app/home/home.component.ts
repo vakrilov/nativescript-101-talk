@@ -38,7 +38,7 @@ const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms));
 export class HomeComponent {
     public code: Array<string>;
     public currentIndex = -1;
-    message: string;
+    public message: string;
 
     constructor(private morseService: MorseService) { }
 

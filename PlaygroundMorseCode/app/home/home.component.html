@@ -1,4 +1,10 @@
 <ActionBar title="Morse Code App!" class="action-bar">
+    <ActionItem
+        ios.position="right"
+        text="Data"
+        [nsRouterLink]="['/data', message]"
+        pageTransition="flip"
+    ></ActionItem>
 </ActionBar>
 <StackLayout class="page form p-15">
     <WrapLayout orientation="horizontal" class="m-x-15" [@flyIn]="code">
