@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { trigger, transition, style, animate, query, stagger } from "@angular/animations";
 import { MorseService } from "../morse.service";
-// import { FlashlightService } from "../flashlight.service";
+import { FlashlightService } from "../flashlight.service";
 
 const GAP_TIME = 300;
 const SYMBOL_TIME_MAP = {
@@ -40,7 +40,7 @@ export class HomeComponent {
     public currentIndex = -1;
     public message: string;
 
-    constructor(private morseService: MorseService) { }
+    constructor(private morseService: MorseService, private flashlightService: FlashlightService) { }
 
     update(value: string) {
         this.message = value;
