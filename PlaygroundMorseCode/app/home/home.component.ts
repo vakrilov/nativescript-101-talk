@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { trigger, transition, style, animate, query, stagger } from "@angular/animations";
-// import { MorseService } from "../morse.service";
+import { MorseService } from "../morse.service";
 // import { FlashlightService } from "../flashlight.service";
 
 // const GAP_TIME = 300;
@@ -18,10 +18,10 @@ const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms));
 export class HomeComponent {
     message: string;
 
-    constructor() { }
+    constructor(private morseService: MorseService) { }
 
     update(value: string) {
-        this.message = value;
+        this.message = this.morseService.translate(value);
     }
 }
 

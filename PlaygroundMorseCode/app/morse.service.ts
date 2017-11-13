@@ -15,7 +15,11 @@ const morseCode = {
 
 @Injectable()
 export class MorseService {
-
+    public translate(message: string): string {
+        return message.split("")
+            .map(char => morseCode[char.toLocaleLowerCase()])
+            .join(" ");
+    }
 }
 
 
