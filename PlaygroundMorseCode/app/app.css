@@ -1,1 +1,7 @@
 @import 'nativescript-theme-core/css/core.light.css';
+
+.code-char {
+    margin: 4;
+    font-size: 50;
+}
+
