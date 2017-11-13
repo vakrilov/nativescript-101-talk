@@ -2,11 +2,11 @@
 </ActionBar>
 <StackLayout class="page form p-15">
     <Label
-        text="Morse code should go here: ... ___ ..."
+        [text]="message"
         textWrap="true"
         class="code-char"
     ></Label>
 
-    <TextField class="input input-border" hint="type message here..."></TextField>
+    <TextField (textChange)="update($event.value)" class="input input-border" hint="type message here..."></TextField>
     <Button class="btn btn-primary" text="Translate"></Button>
 </StackLayout>

@@ -16,7 +16,13 @@ const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms));
     templateUrl: "./home.component.html",
 })
 export class HomeComponent {
+    message: string;
+
     constructor() { }
+
+    update(value: string) {
+        this.message = value;
+    }
 }
 
 
